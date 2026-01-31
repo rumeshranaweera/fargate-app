@@ -177,8 +177,8 @@ aws-fargate-cicd/
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/aws-fargate-cicd.git
-cd aws-fargate-cicd
+git clone https://github.com/rumeshranaweera/fargate-app.git
+cd fargate-app
 ```
 
 ### Step 2: Configure Terraform Variables
@@ -193,8 +193,8 @@ Edit `terraform.tfvars` with your values:
 ```hcl
 aws_region   = "us-east-1"
 project_name = "fargate-app"
-github_org   = "your-github-username"
-github_repo  = "aws-fargate-cicd"
+github_org   = "rumeshranaweera"
+github_repo  = "fargate-app"
 ```
 
 ### Step 3: Deploy Infrastructure with Terraform
