@@ -577,8 +577,8 @@ terraform destroy
 
 ## 👨‍💻 Student Information
 
-**Name**: Rumesh Ranaweera
-**Student ID**: 21UG1359
+**Name**: Rumesh Ranaweera  
+**Student ID**: 21UG1359  
 **Course**: Cloud Infrastructure Design  
 **Assignment**: CI/CD to AWS Fargate  
 **Date**: January 2025
