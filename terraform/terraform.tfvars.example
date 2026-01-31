@@ -1,0 +1,20 @@
+# AWS Configuration
+aws_region   = "us-east-1"
+environment  = "production"
+project_name = "fargate-app"
+
+# Network Configuration
+vpc_cidr = "10.0.0.0/16"
+
+# ECS Configuration
+container_port = 8080
+app_count      = 2
+fargate_cpu    = 256
+fargate_memory = 512
+
+# Health Check
+health_check_path = "/health"
+
+# GitHub Configuration
+github_org  = "your-github-username"
+github_repo = "aws-fargate-cicd"
