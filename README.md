@@ -97,6 +97,7 @@ A production-ready, automated deployment pipeline for containerized Node.js appl
 ## ✨ Features
 
 ### Infrastructure
+
 - ✅ Multi-AZ VPC with public and private subnets
 - ✅ Application Load Balancer with health checks
 - ✅ ECS Fargate cluster using public Terraform module
@@ -105,6 +106,7 @@ A production-ready, automated deployment pipeline for containerized Node.js appl
 - ✅ NAT Gateways for private subnet internet access
 
 ### Security
+
 - ✅ OIDC authentication (no AWS credentials in GitHub)
 - ✅ Security groups with least privilege
 - ✅ Non-root container user
@@ -112,6 +114,7 @@ A production-ready, automated deployment pipeline for containerized Node.js appl
 - ✅ IAM roles with minimal permissions
 
 ### CI/CD
+
 - ✅ Automated build on push to main
 - ✅ Docker image build and push to ECR
 - ✅ ECS task definition updates
@@ -119,6 +122,7 @@ A production-ready, automated deployment pipeline for containerized Node.js appl
 - ✅ Deployment verification
 
 ### Application
+
 - ✅ Node.js Express application
 - ✅ Health check endpoint
 - ✅ Container health checks
@@ -207,6 +211,7 @@ terraform apply
 ```
 
 **Important**: Save the outputs, especially:
+
 - `alb_url` - Your application URL
 - `github_actions_role_arn` - Needed for GitHub secrets
 - `ecr_repository_url` - ECR repository URL
@@ -218,7 +223,6 @@ terraform apply
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ECR_REPOSITORY_URL>
 
 # Build image
-cd ../app
 docker build -t fargate-app .
 
 # Tag image
@@ -275,6 +279,7 @@ The GitHub Actions workflow automates the entire deployment process:
 The pipeline uses OpenID Connect (OIDC) for secure authentication:
 
 **Benefits:**
+
 - No long-lived AWS credentials in GitHub
 - Temporary credentials per workflow run
 - Reduced security risk
@@ -291,6 +296,7 @@ curl http://<ALB_DNS_NAME>/health
 ```
 
 **Expected Response:**
+
 ```json
 {
   "status": "healthy",
@@ -303,11 +309,13 @@ curl http://<ALB_DNS_NAME>/health
 ### Main Application
 
 Open in browser:
+
 ```
 http://<ALB_DNS_NAME>
 ```
 
 You should see a responsive web page with:
+
 - Student name section
 - Architecture details
 - Technology stack badges
@@ -339,7 +347,7 @@ Access locally at: `http://localhost:8080`
 
 - **Cluster**: Managed using public Terraform module
 - **Service**: Fargate launch type
-- **Task Definition**: 
+- **Task Definition**:
   - CPU: 256 (0.25 vCPU)
   - Memory: 512 MB
   - Network Mode: awsvpc
@@ -351,7 +359,7 @@ Access locally at: `http://localhost:8080`
 - **Type**: Application Load Balancer
 - **Scheme**: Internet-facing
 - **Listeners**: HTTP (Port 80)
-- **Target Group**: 
+- **Target Group**:
   - Protocol: HTTP
   - Port: 8080
   - Health Check Path: /health
@@ -406,6 +414,7 @@ Access locally at: `http://localhost:8080`
 - **Streams**: One per task
 
 **View Logs:**
+
 ```bash
 aws logs tail /ecs/fargate-app --follow
 ```
@@ -418,6 +427,7 @@ aws logs tail /ecs/fargate-app --follow
 - Target Group Health
 
 **View Service Status:**
+
 ```bash
 aws ecs describe-services \
   --cluster fargate-app-cluster \
@@ -440,6 +450,7 @@ aws ecs describe-services \
 #### 1. Task Fails to Start
 
 **Check:**
+
 ```bash
 aws ecs describe-tasks \
   --cluster fargate-app-cluster \
@@ -447,6 +458,7 @@ aws ecs describe-tasks \
 ```
 
 **Common Causes:**
+
 - Image not found in ECR
 - IAM role permissions
 - Security group blocking traffic
@@ -454,6 +466,7 @@ aws ecs describe-tasks \
 #### 2. Health Check Failures
 
 **Check:**
+
 - Application is listening on port 8080
 - Health endpoint returns 200 status
 - Security group allows ALB → Task traffic
@@ -461,6 +474,7 @@ aws ecs describe-tasks \
 #### 3. GitHub Actions Fails
 
 **Check:**
+
 - AWS_ROLE_ARN secret is correct
 - GitHub OIDC provider is created
 - IAM role trust policy includes your repo
@@ -468,6 +482,7 @@ aws ecs describe-tasks \
 #### 4. Cannot Access Application
 
 **Check:**
+
 - ALB security group allows inbound 80
 - ECS tasks are running
 - Target group shows healthy targets
@@ -503,6 +518,7 @@ terraform destroy
 ```
 
 **Note**: This will delete:
+
 - VPC and all networking components
 - ECS cluster, service, and tasks
 - ECR repository and images
@@ -561,8 +577,8 @@ terraform destroy
 
 ## 👨‍💻 Student Information
 
-**Name**: [Your Name Here]  
-**Student ID**: [Your ID]  
+**Name**: Rumesh Ranaweera
+**Student ID**: 21UG1359
 **Course**: Cloud Infrastructure Design  
 **Assignment**: CI/CD to AWS Fargate  
 **Date**: January 2025
